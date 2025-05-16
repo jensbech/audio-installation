@@ -34,7 +34,7 @@ sudo systemctl enable audio-layering-repeater
 sudo systemctl start audio-layering-repeater
 ```
 
-## Troubleshooting
+## Misc
 
 * `arecord -l` list recording devices
 * `aplay -l` list playback devices
