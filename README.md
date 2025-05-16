@@ -1,15 +1,12 @@
 # Audio layering repeater
 
-Record  audio segments and plays them back in a loop, building layers of audio over time.
+Record audio segments and plays them back in a loop, building layers over time.
 
 ```bash
-sudo apt-get update
-sudo apt-get install alsa-utils
+sudo apt install alsa-utils
 ```
 
 ## Running as a Service
-
-1. Create service file:
 
 ```bash
 sudo nano /etc/systemd/system/audio-installation.service
