@@ -9,18 +9,18 @@ sudo apt install alsa-utils
 ## Running as a Service
 
 ```bash
-sudo nano /etc/systemd/system/audio-installation.service
+sudo nano /etc/systemd/system/audio-layering-repeater.service
 ```
 
 ```
 [Unit]
-Description=Audio Layering Art Installation
+Description=audio-layering-repeater
 After=network.target
 
 [Service]
 Type=simple
 User=pi
-WorkingDirectory=/home/pi/audio-installation
+WorkingDirectory=/home/pi/audio-layering-repeater
 ExecStart=/usr/bin/pnpm start
 Restart=on-failure
 RestartSec=10
@@ -30,8 +30,8 @@ WantedBy=multi-user.target
 ```
 
 ```bash
-sudo systemctl enable audio-installation
-sudo systemctl start audio-installation
+sudo systemctl enable audio-layering-repeater
+sudo systemctl start audio-layering-repeater
 ```
 
 ## Troubleshooting
