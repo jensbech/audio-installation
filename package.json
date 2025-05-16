@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "node-aplay": "^1.0.3",
-    "node-record-lpcm16": "^1.0.1"
+    "node-record-lpcm16": "^1.0.1",
+    "play-sound": "^1.1.6",
+    "speaker": "^0.5.5"
   }
 }

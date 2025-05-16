@@ -1,6 +1,7 @@
 export const config = {
   recording: {
-    duration: 30 * 60 * 1000,
+    // 5 seconds
+    duration: 5000,
     directory: './recordings',
     format: '.wav',
     sampleRate: 44100,
@@ -10,10 +11,10 @@ export const config = {
   
   playback: {
     volume: 80,
-    loop: false,
+    loop: true,
   },
   
   general: {
-    maxRecordingsToKeep: 10,
+    maxRecordingsToKeep: 100,
   }
 };

@@ -39,9 +39,6 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const config_1 = require("../config");
 const events_1 = require("events");
-/**
- * Class for handling audio recording operations
- */
 class AudioRecorder extends events_1.EventEmitter {
     constructor() {
         super();
@@ -51,26 +48,17 @@ class AudioRecorder extends events_1.EventEmitter {
         this.recordingNumber = 1;
         this.ensureDirectoryExists();
     }
-    /**
-     * Ensure the recordings directory exists
-     */
     ensureDirectoryExists() {
         if (!fs.existsSync(config_1.config.recording.directory)) {
             fs.mkdirSync(config_1.config.recording.directory, { recursive: true });
         }
     }
-    /**
-     * Generate a unique filename for the recording
-     */
     generateFilename() {
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
         const filename = `recording-${this.recordingNumber}-${timestamp}${config_1.config.recording.format}`;
         this.recordingPath = path.join(config_1.config.recording.directory, filename);
         return this.recordingPath;
     }
-    /**
-     * Start recording audio
-     */
     startRecording() {
         if (this.isRecording) {
             return Promise.reject(new Error('Already recording'));
@@ -109,9 +97,6 @@ class AudioRecorder extends events_1.EventEmitter {
             }
         });
     }
-    /**
-     * Stop the current recording
-     */
     stopRecording() {
         if (this.isRecording && this.recorder) {
             console.log('Stopping recording');
@@ -121,9 +106,6 @@ class AudioRecorder extends events_1.EventEmitter {
             this.recorder = null;
         }
     }
-    /**
-     * Clean up old recordings when we exceed maxRecordingsToKeep
-     */
     cleanupOldRecordings() {
         try {
             const files = fs.readdirSync(config_1.config.recording.directory)
@@ -134,7 +116,6 @@ class AudioRecorder extends events_1.EventEmitter {
                 created: fs.statSync(path.join(config_1.config.recording.directory, file)).birthtime
             }))
                 .sort((a, b) => a.created.getTime() - b.created.getTime());
-            // Keep only the latest N recordings
             if (files.length > config_1.config.general.maxRecordingsToKeep) {
                 const filesToDelete = files.slice(0, files.length - config_1.config.general.maxRecordingsToKeep);
                 filesToDelete.forEach(file => {

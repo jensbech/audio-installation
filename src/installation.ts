@@ -20,9 +20,11 @@ export class AudioInstallation {
       this.recordings.push(filePath);
     });
     
-    this.player.on('playbackComplete', () => {
-      console.log('Playback completed, starting next recording cycle');
-      this.startRecordingCycle();
+    // Listen for playback completion, but we don't need to take any action
+    // since each recording manages its own looping
+    this.player.on('playbackComplete', (filePath: string) => {
+      console.log(`Playback completed for ${filePath}`);
+      // The playFileInLoop method will handle starting playback again
     });
   }
   
@@ -60,8 +62,16 @@ export class AudioInstallation {
       console.log('Starting recording cycle');
       const recordingPath = await this.recorder.startRecording();
       
-      console.log('Recording cycle complete, starting playback');
-      await this.player.playFile(recordingPath);
+      console.log('Recording cycle complete, adding to layered playback');
+      // Add the new recording to the playback swarm
+      this.player.addRecordingToLayeredPlayback(recordingPath);
+      
+      // Schedule the next recording cycle immediately
+      setTimeout(() => {
+        if (this.isRunning) {
+          this.startRecordingCycle();
+        }
+      }, 0);
       
     } catch (error) {
       console.error('Error in recording cycle:', error);
