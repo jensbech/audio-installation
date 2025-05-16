@@ -1,4 +1,4 @@
-# Audio Layering Installation
+# Audio layering repeater
 
 Record  audio segments and plays them back in a loop, building layers of audio over time.
 
